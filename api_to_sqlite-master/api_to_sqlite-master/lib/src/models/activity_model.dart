@@ -26,6 +26,6 @@ class Activity {
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "priority": priority,
+    "priority": priority
   };
 }

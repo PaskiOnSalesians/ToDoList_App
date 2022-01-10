@@ -28,13 +28,15 @@ class DBProvider {
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute('''
+      await db.execute(
+        '''
         CREATE TABLE Activity(
           id INTEGER PRIMARY KEY,
           name TEXT,
           priority TEXT
-          )'''
-        );
+        )
+        '''
+      );
     });
   }
 
@@ -50,7 +52,7 @@ class DBProvider {
   // Delete all activities
   Future<int?> deleteAllActivities() async {
     final db = await database;
-    final res = await db?.rawDelete("DELETE * FROM Activity");
+    final res = await db?.rawDelete("DELETE FROM Activity");
 
     return res;
   }

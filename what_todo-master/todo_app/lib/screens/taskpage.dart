@@ -37,9 +37,7 @@ class _TaskpageState extends State<Taskpage> {
       _taskId = widget.task.id;
     }
 
-    _titleFocus = FocusNode();
-    _descriptionFocus = FocusNode();
-    _todoFocus = FocusNode();
+    
 
     super.initState();
   }
@@ -227,6 +225,7 @@ class _TaskpageState extends State<Taskpage> {
                               decoration: InputDecoration(
                                 hintText: "Enter Todo item...",
                                 border: InputBorder.none,
+                                
                               ),
                             ),
                           ),

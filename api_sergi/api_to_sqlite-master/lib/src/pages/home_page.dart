@@ -1,5 +1,5 @@
 import 'package:api_to_sqlite/src/providers/db_provider.dart';
-import 'package:api_to_sqlite/src/providers/activity_api_provider.dart';
+import 'package:api_to_sqlite/src/providers/employee_api_provider.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : _buildActivityListView(),
+          : _buildEmployeeListView(),
     );
   }
 
@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
 
-    var apiProvider = ActivityApiProvider();
-    await apiProvider.getAllActivities();
+    var apiProvider = EmployeeApiProvider();
+    await apiProvider.getAllEmployees();
 
     // wait for 2 seconds to simulate loading of data
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
 
     setState(() {
       isLoading = false;
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
 
-    await DBProvider.db.deleteAllActivities();
+    await DBProvider.db.deleteAllEmployees();
 
     // wait for 1 second to simulate loading of data
     await Future.delayed(const Duration(seconds: 1));
@@ -78,12 +78,12 @@ class _HomePageState extends State<HomePage> {
     });
 
     // ignore: avoid_print
-    print('All activities deleted');
+    print('All employees deleted');
   }
 
-  _buildActivityListView() {
+  _buildEmployeeListView() {
     return FutureBuilder(
-      future: DBProvider.db.getAllActivities(),
+      future: DBProvider.db.getAllEmployees(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -102,8 +102,8 @@ class _HomePageState extends State<HomePage> {
                   style: const TextStyle(fontSize: 20.0),
                 ),
                 title: Text(
-                    "Activity: ${snapshot.data[index].name}"),
-                subtitle: Text('Priority: ${snapshot.data[index].priority}'),
+                    "Name: ${snapshot.data[index].firstName} ${snapshot.data[index].lastName} "),
+                subtitle: Text('EMAIL: ${snapshot.data[index].email}'),
               );
             },
           );
